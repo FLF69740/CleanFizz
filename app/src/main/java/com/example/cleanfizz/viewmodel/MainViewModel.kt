@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(interactor: MainInteractor): ViewModel() {
 
     private val getNextScreen = interactor.getNexScreen
+    private val getErrorMessage = interactor.getErrorMessage
 
 
     // LIVEDATA
@@ -23,6 +24,9 @@ class MainViewModel(interactor: MainInteractor): ViewModel() {
 
     private val formularyIsKO = MutableLiveData<String>()
     fun getScreenError()= formularyIsKO
+
+    private val errorText = MutableLiveData<String>()
+    fun getErrorText() = errorText
 
 
     // OBSERVATION
@@ -38,6 +42,15 @@ class MainViewModel(interactor: MainInteractor): ViewModel() {
                 }
                 is ResultOf.Error -> formularyIsKO.postValue("UNKNOWN ERROR")
                 else -> formularyIsKO.postValue("UNKNOWN ERROR")
+            }
+        }
+    }
+
+    fun responseErrorText(context: Context) {
+        viewModelScope.launch {
+            when(val result = getErrorMessage.invoke(context = context)){
+                is ResultOf.Success -> errorText.postValue(FrontMapper.getErrorMessageForErrorScreen(result.data as NextScreenType.ErrorScreen))
+                is ResultOf.Error -> errorText.postValue("pas bon ça")
             }
         }
     }

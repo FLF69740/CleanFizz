@@ -3,6 +3,7 @@ package com.example.cleanfizz.di
 import com.example.cleanfizz.viewmodel.MainViewModel
 import com.example.core.interactor.MainInteractor
 import com.example.core.repository.MenuRepository
+import com.example.core.usecase.GetErrorMessageUseCase
 import com.example.core.usecase.GetNextScreenAfterFormularyUseCase
 import com.example.data.repository.MenuRepositoryImpl
 import com.example.data.repository.PreferencesDataRepository
@@ -18,8 +19,9 @@ val appModule = module {
 
     // USE CASES
     single { GetNextScreenAfterFormularyUseCase(get()) }
+    single { GetErrorMessageUseCase(get()) }
 
-    single { MainInteractor(get()) }
+    single { MainInteractor(get(), get()) }
 }
 
 val viewModelModule = module {

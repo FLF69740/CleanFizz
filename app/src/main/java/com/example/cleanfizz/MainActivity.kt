@@ -18,4 +18,7 @@ class MainActivity : BaseActivity(), ChangeFragmentCallback {
         replaceFragment(ErrorFragment.newInstance())
     }
 
+    override fun onBackPressed() {
+        replaceFragment(getFragment())
+    }
 }

@@ -37,6 +37,7 @@ class GetNextScreenAfterFormularyUseCase(private val menuRepository: MenuReposit
 
         if (errorList.isNotEmpty()) {
             result = ResultOf.Success(NextScreenType.ErrorScreen(buildErrorMessage(errorList = errorList)))
+            menuRepository.saveErrorData( buildErrorMessage(errorList = errorList),context = context)
         }
 
         return result
@@ -58,10 +59,10 @@ class GetNextScreenAfterFormularyUseCase(private val menuRepository: MenuReposit
     private suspend fun buildErrorMessage(errorList: MutableList<String>): String {
         val builder = StringBuilder()
         builder.append(
-            if (errorList.size > 1) {
+            if (errorList.size >= 2) {
                 ERRORS_TITLE
             } else {
-                builder.append(SINGLE_ERROR_TITLE)
+                SINGLE_ERROR_TITLE
             })
         errorList.forEach {
             builder.append(it)

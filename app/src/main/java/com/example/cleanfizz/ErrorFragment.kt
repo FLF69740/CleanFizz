@@ -18,6 +18,15 @@ class ErrorFragment : Fragment() {
 
         val title  = view.findViewById<TextView>(R.id.error_text_title)
 
+        context?.let { letContext ->
+            viewModel.responseErrorText(context = letContext)
+        }
+
+        viewModel.getErrorText().observe(viewLifecycleOwner) {
+            title.text = it
+        }
+
+
         return view
     }
 

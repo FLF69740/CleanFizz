@@ -3,6 +3,8 @@ package com.example.data.repository
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.core.ResultOf
+import com.example.core.SHARED_PREF_ERROR_MESSAGE
+import com.example.core.SHARED_PREF_ERROR_MESSAGE_VALUE
 import com.example.core.SHARED_PREF_LIMIT
 import com.example.core.SHARED_PREF_LIMIT_VALUE
 import com.example.core.SHARED_PREF_NUMBER_ONE
@@ -42,6 +44,13 @@ class PreferencesDataSourceImpl: PreferencesDataRepository {
             .apply()
     }
 
+    override suspend fun saveErrorMessage(message: String, context: Context) {
+        context.getSharedPreferences(SHARED_PREF_ERROR_MESSAGE, 0)
+            .edit()
+            .putString(SHARED_PREF_ERROR_MESSAGE_VALUE, message)
+            .apply()
+    }
+
     override suspend fun getPreferencesData(context: Context): ResultOf<FormularyBusinessModel> = ResultOf.Success(
         FormularyBusinessModel(
             context.getSharedPreferences(SHARED_PREF_WORD_ONE, 0).getString(SHARED_PREF_WORD_ONE_VALUE, null),
@@ -50,6 +59,10 @@ class PreferencesDataSourceImpl: PreferencesDataRepository {
             context.getSharedPreferences(SHARED_PREF_NUMBER_TWO, 0).getInt(SHARED_PREF_WORD_TWO_VALUE, 0),
             context.getSharedPreferences(SHARED_PREF_LIMIT, 0).getInt(SHARED_PREF_LIMIT_VALUE, 0)
         )
+    )
+
+    override suspend fun getErrorPreferences(context: Context): ResultOf<String?> = ResultOf.Success(
+        context.getSharedPreferences(SHARED_PREF_ERROR_MESSAGE, 0).getString(SHARED_PREF_ERROR_MESSAGE_VALUE, "")
     )
 
 }
