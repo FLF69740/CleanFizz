@@ -1,5 +1,6 @@
 package com.example.cleanfizz.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,9 +27,9 @@ class MainViewModel(interactor: MainInteractor): ViewModel() {
 
     // OBSERVATION
 
-    fun responseValidateBtn(formulary: FrontFormulary) {
+    fun responseValidateBtn(formulary: FrontFormulary, context: Context) {
         viewModelScope.launch {
-            when(val result = getNextScreen.invoke(formulary = FrontMapper.frontNextScreenToBusiness(formulary))){
+            when(val result = getNextScreen.invoke(formulary = FrontMapper.frontNextScreenToBusiness(formulary), context)){
                 is ResultOf.Success -> {
                     when (result.data) {
                         is NextScreenType.ResultScreen -> formularyIsOk.postValue(true)

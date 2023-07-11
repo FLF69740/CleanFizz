@@ -1,5 +1,6 @@
 package com.example.core.usecase
 
+import android.content.Context
 import com.example.core.ERRORS_TITLE
 import com.example.core.LIMIT_ERROR
 import com.example.core.NUMBER_1_ERROR
@@ -11,13 +12,14 @@ import com.example.core.WORD_2_ERROR
 import com.example.core.convertString
 import com.example.core.model.FormularyBusinessModel
 import com.example.core.model.NextScreenType
+import com.example.core.repository.MenuRepository
 import com.example.core.safeLet
 import com.example.core.safeNotLet
 import java.lang.StringBuilder
 
-class GetNextScreenAfterFormularyUseCase() {
+class GetNextScreenAfterFormularyUseCase(private val menuRepository: MenuRepository) {
 
-    suspend operator fun invoke(formulary: FormularyBusinessModel): ResultOf<NextScreenType>? {
+    suspend operator fun invoke(formulary: FormularyBusinessModel, context: Context): ResultOf<NextScreenType>? {
 
         var result: ResultOf<NextScreenType>? = null
         val errorList = mutableListOf<String>()
