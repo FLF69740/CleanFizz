@@ -25,4 +25,10 @@ abstract class BaseActivity : AppCompatActivity() {
                 .commit()
         }
     }
+
+    protected fun replaceFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction()
+            .replace(getFragmentLayout(), fragment)
+            .commit()
+    }
 }
