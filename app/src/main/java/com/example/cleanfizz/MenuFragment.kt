@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.example.cleanfizz.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.ClassCastException
 
 class MenuFragment : Fragment() {
+
+    private val viewModel: MainViewModel by viewModel()
 
     private var mCallback: ChangeFragmentCallback? = null
 
@@ -19,6 +23,19 @@ class MenuFragment : Fragment() {
         val validateBtn = view.findViewById<Button>(R.id.validate)
 
         validateBtn.setOnClickListener {
+            viewModel.responseValidateBtn(
+                wordOne = null,
+                wordTwo = null,
+                numberOne = null,
+                numberTwo = null
+            )
+        }
+
+        viewModel.getScreenValidation().observe(viewLifecycleOwner){ _ ->
+            mCallback?.toScreenResult()
+        }
+
+        viewModel.getScreenError().observe(viewLifecycleOwner){ _ ->
             mCallback?.toScreenError()
         }
 
