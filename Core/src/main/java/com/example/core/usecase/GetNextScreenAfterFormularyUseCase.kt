@@ -26,6 +26,7 @@ class GetNextScreenAfterFormularyUseCase(private val menuRepository: MenuReposit
 
         safeLet (formulary.numberOne,formulary.numberTwo,formulary.wordOne,formulary.wordTwo,formulary.limit){ _,_,_,_,_ ->
             result = ResultOf.Success(NextScreenType.ResultScreen)
+            menuRepository.saveUserData( formularyBusinessModel =  formulary, context = context)
         }
 
         registerError(formulary.wordOne, EnumError.WORD1, errorList)
