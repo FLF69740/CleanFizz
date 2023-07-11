@@ -18,6 +18,8 @@ class ErrorFragment : Fragment() {
 
         val title  = view.findViewById<TextView>(R.id.error_text_title)
 
+
+
         return view
     }
 
