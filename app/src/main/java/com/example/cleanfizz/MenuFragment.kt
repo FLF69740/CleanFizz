@@ -32,15 +32,19 @@ class MenuFragment : Fragment() {
         val limitEdit = view.findViewById<EditText>(R.id.limit)
 
         validateBtn.setOnClickListener {
-            viewModel.responseValidateBtn(
-                FrontFormulary(
-                    wordOne = wordOneEdit.convertString(),
-                    wordTwo = wordTwoEdit.convertString(),
-                    numberOne = numberOneEdit.convertStringToInt(),
-                    numberTwo = numberTwoEdit.convertStringToInt(),
-                    limit = limitEdit.convertStringToInt()
+            context?.let { letContext ->
+                viewModel.responseValidateBtn(
+                    FrontFormulary(
+                        wordOne = wordOneEdit.convertString(),
+                        wordTwo = wordTwoEdit.convertString(),
+                        numberOne = numberOneEdit.convertStringToInt(),
+                        numberTwo = numberTwoEdit.convertStringToInt(),
+                        limit = limitEdit.convertStringToInt()
+                    ),
+                    context = letContext
                 )
-            )
+            }
+
         }
 
         viewModel.getScreenValidation().observe(viewLifecycleOwner){ _ ->
