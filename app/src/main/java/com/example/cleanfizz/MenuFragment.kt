@@ -7,7 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import com.example.cleanfizz.model.FrontFormulary
 import com.example.cleanfizz.viewmodel.MainViewModel
+import com.example.core.convertString
+import com.example.core.convertStringToInt
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.ClassCastException
 
@@ -21,13 +25,21 @@ class MenuFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_menu, container, false)
 
         val validateBtn = view.findViewById<Button>(R.id.validate)
+        val wordOneEdit = view.findViewById<EditText>(R.id.word_one)
+        val wordTwoEdit = view.findViewById<EditText>(R.id.word_two)
+        val numberOneEdit = view.findViewById<EditText>(R.id.number_one)
+        val numberTwoEdit = view.findViewById<EditText>(R.id.number_two)
+        val limitEdit = view.findViewById<EditText>(R.id.limit)
 
         validateBtn.setOnClickListener {
             viewModel.responseValidateBtn(
-                wordOne = null,
-                wordTwo = null,
-                numberOne = null,
-                numberTwo = null
+                FrontFormulary(
+                    wordOne = wordOneEdit.convertString(),
+                    wordTwo = wordTwoEdit.convertString(),
+                    numberOne = numberOneEdit.convertStringToInt(),
+                    numberTwo = numberTwoEdit.convertStringToInt(),
+                    limit = limitEdit.convertStringToInt()
+                )
             )
         }
 
