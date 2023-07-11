@@ -14,4 +14,8 @@ class MainActivity : BaseActivity(), ChangeFragmentCallback {
         replaceFragment(ResultFragment.newInstance())
     }
 
+    override fun toScreenError() {
+        replaceFragment(ErrorFragment.newInstance())
+    }
+
 }

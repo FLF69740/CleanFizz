@@ -19,7 +19,7 @@ class MenuFragment : Fragment() {
         val validateBtn = view.findViewById<Button>(R.id.validate)
 
         validateBtn.setOnClickListener {
-            mCallback?.toScreenResult()
+            mCallback?.toScreenError()
         }
 
         return view
