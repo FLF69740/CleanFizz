@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CleanFizz"
 include ':app'
+include ':Data'
+include ':Core'
