@@ -13,7 +13,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(getAttachedLayout())
         configureFragment(savedInstanceState)
     }
