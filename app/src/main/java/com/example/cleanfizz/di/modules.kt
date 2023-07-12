@@ -5,6 +5,7 @@ import com.example.core.interactor.MainInteractor
 import com.example.core.repository.MenuRepository
 import com.example.core.usecase.GetErrorMessageUseCase
 import com.example.core.usecase.GetNextScreenAfterFormularyUseCase
+import com.example.core.usecase.GetFizzBuzzListUseCase
 import com.example.data.repository.MenuRepositoryImpl
 import com.example.data.repository.PreferencesDataRepository
 import com.example.data.repository.PreferencesDataSourceImpl
@@ -20,8 +21,9 @@ val appModule = module {
     // USE CASES
     single { GetNextScreenAfterFormularyUseCase(get()) }
     single { GetErrorMessageUseCase(get()) }
+    single { GetFizzBuzzListUseCase(get()) }
 
-    single { MainInteractor(get(), get()) }
+    single { MainInteractor(get(), get(), get()) }
 }
 
 val viewModelModule = module {
