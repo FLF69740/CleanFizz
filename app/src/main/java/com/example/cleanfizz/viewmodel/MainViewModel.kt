@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cleanfizz.mapper.FrontMapper
 import com.example.cleanfizz.model.FrontFormulary
+import com.example.cleanfizz.model.FrontItemFizzBuzz
 import com.example.core.ResultOf
 import com.example.core.interactor.MainInteractor
+import com.example.core.model.FormularyBusinessModel
 import com.example.core.model.NextScreenType
 import kotlinx.coroutines.launch
 
@@ -15,7 +17,7 @@ class MainViewModel(interactor: MainInteractor): ViewModel() {
 
     private val getNextScreen = interactor.getNexScreen
     private val getErrorMessage = interactor.getErrorMessage
-
+    private val getFizzBuzzList = interactor.getFizzBuzzList
 
     // LIVEDATA
 
@@ -28,6 +30,9 @@ class MainViewModel(interactor: MainInteractor): ViewModel() {
     private val errorText = MutableLiveData<String>()
     fun getErrorText() = errorText
 
+
+    private val fizzBuzzList = MutableLiveData<FrontItemFizzBuzz>()
+    fun getFizzBuzzList() = fizzBuzzList
 
     // OBSERVATION
 
@@ -55,5 +60,13 @@ class MainViewModel(interactor: MainInteractor): ViewModel() {
         }
     }
 
+    fun responseFizzBuzzList(context: Context) {
+        viewModelScope.launch {
+            when(val resul = getFizzBuzzList.invoke(context = context)){
+                is ResultOf.Success -> fizzBuzzList.postValue(FrontMapper.getFrontListFizzBuzz(resul.data))
+                is ResultOf.Error -> formularyIsKO.postValue("UNKNOWN ERROR")
+            }
+        }
+    }
 
 }
